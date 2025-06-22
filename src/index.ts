@@ -48,7 +48,7 @@ router.post('/add/', function (req, res) {
     })
 })
 
-if (fs.existsSync("data.json")) {
+//if (fs.existsSync("data.json")) {
     fs.readFile("data.json", "utf8", (err: NodeJS.ErrnoException | null, data: string) => {
         if (err) {
             console.error(err)
@@ -61,7 +61,7 @@ if (fs.existsSync("data.json")) {
             console.error(`Error parsing JSON: ${error}`)
         }
     })
-}
+//}
 
 
 export default router

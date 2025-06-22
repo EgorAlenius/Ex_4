@@ -5,7 +5,7 @@ import morgan from "morgan"
 //import mongoose, { Connection } from 'mongoose'
 
 const app: Express = express()
-const port = 8000
+const port = 3000
 
 /* const mongoDB: string = "mongodb://127.0.0.1:27017/poemdb"
 mongoose.connect(mongoDB)

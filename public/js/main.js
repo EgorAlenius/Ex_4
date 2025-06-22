@@ -8,7 +8,7 @@ submitButton.addEventListener("click", async () => {
         "todos": [todos.value]
     };
 
-    const userAdded = await fetch("http://localhost:8000/add", {
+    const userAdded = await fetch("http://localhost:3000/add", {
         method: "post",
         headers: {
             "Content-type": "application/json"
@@ -16,6 +16,7 @@ submitButton.addEventListener("click", async () => {
         body: JSON.stringify(person)
     })
     const responceFromAdd = await userAdded.json()
+    
     console.log(responceFromAdd)
     name.value = ""
     todos.value = ""
