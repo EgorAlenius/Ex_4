@@ -3,12 +3,12 @@ import fs from "fs"
 
 const router: Router = Router()
 
-type TUsers = {
+type TUser = {
     name: string;
     todos: string[];
 };
 
-let users: TUsers[] = []
+let users: TUser[] = []
 /* let test1: TUsers[] = [{ name: "testing",
     todos: ["Eat", "Sleap", "Repeat"]}] */
 
