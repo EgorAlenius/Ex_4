@@ -16,7 +16,7 @@ submitButton.addEventListener("click", async () => {
         body: JSON.stringify(person)
     })
     const responceFromAdd = await userAdded.json()
-
+    
     console.log(responceFromAdd)
     // name.value = ""
     // todos.value = ""
