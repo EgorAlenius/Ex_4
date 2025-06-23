@@ -16,17 +16,17 @@ router.get('/todos/:id', function (req, res) {
     let id=req.url.slice(7)
     console.log(id)
     let i=0
-    for (; i<users.length; i++){
-        if (users[i].name==id){
+    for (; i<TUser.length; i++){
+        if (TUser[i].name==id){
             console.log(id+" is found")
             break
         }
     }
-    if (i==users.length){
+    if (i==TUser.length){
         res.send({ msg: "User not found" });
     }
     else{ 
-        res.send({ msg: users[i].todos });
+        res.send({ msg: TUser[i].todos });
     }
 });
 
