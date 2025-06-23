@@ -8,7 +8,7 @@ type TUser = {
     todos: string[];
 };
 
-let users: TUser[] = []
+let TUser: TUser[] = []
 /* let test1: TUsers[] = [{ name: "testing",
     todos: ["Eat", "Sleap", "Repeat"]}] */
 
@@ -16,17 +16,17 @@ router.get('/todos/:id', function (req, res) {
     let id=req.url.slice(7)
     console.log(id)
     let i=0
-    for (; i<users.length; i++){
-        if (users[i].name==id){
+    for (; i<TUser.length; i++){
+        if (TUser[i].name==id){
             console.log(id+" is found")
             break
         }
     }
-    if (i==users.length){
+    if (i==TUser.length){
         res.send({ msg: "User not found" });
     }
     else{ 
-        res.send({ msg: users[i].todos });
+        res.send({ msg: TUser[i].todos });
     }
 });
 
@@ -35,26 +35,26 @@ router.post('/add/', function (req, res) {
     console.log("Submited "+ req.body)
     // Is user new or already exist?
     let i=0
-    for (; i<users.length; i++){
-        if (users[i].name==name){
+    for (; i<TUser.length; i++){
+        if (TUser[i].name==name){
             console.log("Already exist in list")
             break
         }
         else 
         console.log("New")
     }
-    console.log("Found in position - "+i+"/"+users.length)
+    console.log("Found in position - "+i+"/"+TUser.length)
 
     // adding new user
-    if (i==users.length){
-        users.push(req.body)
+    if (i==TUser.length){
+        TUser.push(req.body)
     }
     else{ // adding new action
-        users[i].todos.push(req.body.todos.toString())
+        TUser[i].todos.push(req.body.todos.toString())
     }
 
     res.send({ msg: `Todo added successfully for user ${name}.` });
-    fs.writeFile("data.json", JSON.stringify(users), (err: NodeJS.ErrnoException | null) => {
+    fs.writeFile("data.json", JSON.stringify(TUser), (err: NodeJS.ErrnoException | null) => {
         if (err) {
             console.error(err)
             return
@@ -69,8 +69,8 @@ router.post('/add/', function (req, res) {
             return
         }
         try {
-            users = JSON.parse(data)
-            console.log("Reading from list: " + JSON.stringify(users));
+            TUser = JSON.parse(data)
+            console.log("Reading from list: " + JSON.stringify(TUser));
         } catch (error: any) {
             console.error(`Error parsing JSON: ${error}`)
         }
