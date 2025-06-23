@@ -18,8 +18,8 @@ submitButton.addEventListener("click", async () => {
     const responceFromAdd = await userAdded.json()
 
     console.log(responceFromAdd)
-    name.value = ""
-    todos.value = ""
+    // name.value = ""
+    // todos.value = ""
     const textParagraph = document.getElementById("responce")
     textParagraph.innerText = responceFromAdd.msg
 })
