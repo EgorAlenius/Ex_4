@@ -12,9 +12,23 @@ let users: TUser[] = []
 /* let test1: TUsers[] = [{ name: "testing",
     todos: ["Eat", "Sleap", "Repeat"]}] */
 
-/* router.get('/hello', function (req, res) {
-    res.send({ msg: "Hello world!" });
-}); */
+router.get('/todos/:id', function (req, res) {
+    let id=req.url.slice(7)
+    console.log(id)
+    let i=0
+    for (; i<users.length; i++){
+        if (users[i].name==id){
+            console.log(id+" is found")
+            break
+        }
+    }
+    if (i==users.length){
+        res.send({ msg: "User not found" });
+    }
+    else{ 
+        res.send({ msg: users[i].todos });
+    }
+});
 
 router.post('/add/', function (req, res) {
     let name = req.body.name.toString();
