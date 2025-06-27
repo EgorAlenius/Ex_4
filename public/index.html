@@ -6,7 +6,7 @@
     <title>Document</title>
 </head>
 <body>
-        <form action="" method="get" class="form-example" id="todoForm">
+    <form action="" method="get" class="form-example" id="todoForm">
         <div class="form-example">
             <div>
                 <label>User:</label>
@@ -21,6 +21,21 @@
             </div>
         </div>
         <p id="responce"> </p>
+    </form>
+    <form action="" method="get" class="form-example" id="searchForm">
+        <div class="form-example">
+            <div>
+                <label>searchInput :</label>
+                <input type="text" name="User" id="searchInput" value="" />
+            </div>
+            <div>
+                <button type="button" id="search" >Search</button>
+            </div>
+             <div>
+                <button style="display: block; visibility: hidden;" type="button" id="deleteUser" >deleteUser</button>
+            </div>
+        </div>
+        <ul id="todosList"> </ul>
     </form>
 </body>
 <script type="module" src="js/main.js"></script>

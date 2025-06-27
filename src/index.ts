@@ -9,12 +9,11 @@ type TUser = {
 };
 
 let TUser: TUser[] = []
-/* let test1: TUsers[] = [{ name: "testing",
-    todos: ["Eat", "Sleap", "Repeat"]}] */
+
 
 router.get('/todos/:id', function (req, res) {
     let id=req.url.slice(7)
-    console.log(id)
+    console.log("Search of: "+id)
     let i=0
     for (; i<TUser.length; i++){
         if (TUser[i].name==id){
@@ -54,28 +53,55 @@ router.post('/add/', function (req, res) {
     }
 
     res.send({ msg: `Todo added successfully for user ${name}.` });
+    FileWriting()
+})
+
+router.delete("/delete/:id", function (req, res) {
+    //console.log(typeof(req.body.name))
+    let name = req.body.name
+    console.log("To be delete: "+ name)
+    let i=0
+    for (; i<TUser.length; i++){
+        if (TUser[i].name==name){
+            TUser.splice(i,1);
+            console.log("Found in list in position " +i)
+            break
+        }
+    }
+    console.log("After deleting "+JSON.stringify(TUser))
+    FileWriting()
+    res.send({ msg: "User deleted successfully." });
+})
+
+function FileWriting() {
     fs.writeFile("data.json", JSON.stringify(TUser), (err: NodeJS.ErrnoException | null) => {
         if (err) {
             console.error(err)
             return
         }
     })
-})
+}
 
-//if (fs.existsSync("data.json")) {
-    fs.readFile("data.json", "utf8", (err: NodeJS.ErrnoException | null, data: string) => {
-        if (err) {
-            console.error(err)
-            return
-        }
-        try {
-            TUser = JSON.parse(data)
-            console.log("Reading from list: " + JSON.stringify(TUser));
-        } catch (error: any) {
-            console.error(`Error parsing JSON: ${error}`)
-        }
-    })
-//}
+function Intro() {
+    if (fs.existsSync("data.json")) {
+        fs.readFile("data.json", "utf8", (err: NodeJS.ErrnoException | null, data: string) => {
+            if (err) {
+                console.error(err)
+                return
+            }
+            try {
+                TUser = JSON.parse(data)
+                console.log("Reading from list: " + JSON.stringify(TUser));
+            } catch (error: any) {
+                console.error(`Error parsing JSON: ${error}`)
+            }
+        })
+    }
+    else{
+        FileWriting()
+    }
+}
 
+Intro()
 
 export default router
