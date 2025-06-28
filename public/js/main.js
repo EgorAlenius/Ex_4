@@ -73,7 +73,7 @@ deleteUserButton.addEventListener("click", async () => {
     const responceFromDeleted = await userDeleted.json()
     
     console.log(responceFromDeleted)
-    nameDelete.value = ""
+    nameDelete.value = "";
     const outputList = document.getElementById("todosList")
     while (outputList.hasChildNodes()) { // List cleaning
         outputList.removeChild(outputList.firstChild);
@@ -82,3 +82,21 @@ deleteUserButton.addEventListener("click", async () => {
     textParagraph.innerText = responceFromDeleted.msg
 })
 
+
+// Delete ToDo
+const todosList = document.getElementById("todosList")
+todosList.addEventListener("click", function (e) {
+    const nameDelete = document.getElementById("searchInput");
+    if (e.target.tagName == 'LI') {
+        console.log(e.target.innerText + " " + nameDelete.value);  // Check if the element is a LI
+
+        /* const todoDeleted = await fetch("http://localhost:3000/update", {
+            method: "put",
+            headers: {
+                "Content-type": "application/json"
+            },
+            body: JSON.stringify(person)
+        })
+        const responceFromDeleted = await userDeleted.json() */
+    }
+})
