@@ -7,13 +7,12 @@ type TUser = {
     name: string;
     todos: string[];
 };
-
 let TUser: TUser[] = []
 
 
 router.get('/todos/:id', function (req, res) {
     let id=req.url.slice(7)
-    console.log("Search of: "+id)
+    //console.log("Search of: "+id)
     let i=0
     for (; i<TUser.length; i++){
         if (TUser[i].name==id){
@@ -29,9 +28,10 @@ router.get('/todos/:id', function (req, res) {
     }
 });
 
+
 router.post('/add/', function (req, res) {
     let name = req.body.name.toString();
-    console.log("Submited "+ req.body)
+    //console.log("Submited "+ req.body)
     // Is user new or already exist?
     let i=0
     for (; i<TUser.length; i++){
@@ -40,10 +40,9 @@ router.post('/add/', function (req, res) {
             break
         }
         else 
-        console.log("New")
+        console.log(name+" is new")
     }
     console.log("Found in position - "+i+"/"+TUser.length)
-
     // adding new user
     if (i==TUser.length){
         TUser.push(req.body)
@@ -51,7 +50,6 @@ router.post('/add/', function (req, res) {
     else{ // adding new action
         TUser[i].todos.push(req.body.todos.toString())
     }
-
     res.send({ msg: `Todo added successfully for user ${name}.` });
     FileWriting()
 })
@@ -59,18 +57,43 @@ router.post('/add/', function (req, res) {
 router.delete("/delete/:id", function (req, res) {
     //console.log(typeof(req.body.name))
     let name = req.body.name
-    console.log("To be delete: "+ name)
+    //console.log("To be delete: "+ name)
     let i=0
     for (; i<TUser.length; i++){
         if (TUser[i].name==name){
             TUser.splice(i,1);
-            console.log("Found in list in position " +i)
+            //console.log("Found in list in position " +i)
             break
         }
     }
-    console.log("After deleting "+JSON.stringify(TUser))
+    //console.log("After deleting "+JSON.stringify(TUser))
     FileWriting()
     res.send({ msg: "User deleted successfully." });
+})
+
+router.put("/update", function (req, res) {
+    console.log("To be delete " + req.body.name + ' - ' + req.body.todo)
+    let name = req.body.name
+    let i = 0
+    for (; i < TUser.length; i++) {
+        if (TUser[i].name == name) {
+            let j = 0
+            for (; j < TUser[i].todos.length; j++) {
+                if (TUser[i].todos[j] == req.body.todo) {
+                    if (j == 0) {
+                        TUser[i].todos.splice(0,1)
+                    }
+                    else {
+                        TUser[i].todos.splice(j, 1)
+                    }
+                }
+            }
+            break
+        }
+    }
+    //console.log(TUser)
+    FileWriting()
+    res.send({ msg: "Todo deleted successfully." });
 })
 
 function FileWriting() {
@@ -91,7 +114,7 @@ function Intro() {
             }
             try {
                 TUser = JSON.parse(data)
-                console.log("Reading from list: " + JSON.stringify(TUser));
+                console.log("Reading list from file: " + JSON.stringify(TUser));
             } catch (error: any) {
                 console.error(`Error parsing JSON: ${error}`)
             }

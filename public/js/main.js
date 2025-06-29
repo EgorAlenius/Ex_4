@@ -40,13 +40,18 @@ searchButton.addEventListener("click", async () => {
     }
 
     if (responceFromSeek.msg == "User not found") {
-        var li = document.createElement("li");
-        li.appendChild(document.createTextNode(responceFromSeek.msg));
-        outputList.appendChild(li);
+        const textParagraph = document.getElementById("responce")
+        textParagraph.innerText = responceFromSeek.msg
+        // var li = document.createElement("li");
+        // li.appendChild(document.createTextNode(responceFromSeek.msg));
+        // outputList.appendChild(li);
     }
     else {
         responceFromSeek.msg.forEach(todo => {
+            //var a = document.createElement("a");
             var li = document.createElement("li");
+            // a.appendChild(document.createTextNode(JSON.stringify(todo)));
+            // li.appendChild(a);
             li.appendChild(document.createTextNode(JSON.stringify(todo)));
             outputList.appendChild(li);
         }); 
@@ -85,18 +90,24 @@ deleteUserButton.addEventListener("click", async () => {
 
 // Delete ToDo
 const todosList = document.getElementById("todosList")
-todosList.addEventListener("click", function (e) {
+todosList.addEventListener("click", async function (e) {
     const nameDelete = document.getElementById("searchInput");
     if (e.target.tagName == 'LI') {
-        console.log(e.target.innerText + " " + nameDelete.value);  // Check if the element is a LI
+        const todo=e.target.innerText.slice(1,-1)
+        console.log(todo + " " + nameDelete.value);  // Check if the element is a LI
 
-        /* const todoDeleted = await fetch("http://localhost:3000/update", {
+        const todoDeleted = await fetch("http://localhost:3000/update", {
             method: "put",
             headers: {
                 "Content-type": "application/json"
             },
-            body: JSON.stringify(person)
+            body: JSON.stringify({
+                "name": nameDelete.value,
+                "todo": todo
+            })
         })
-        const responceFromDeleted = await userDeleted.json() */
+        const responceFromDeleted = await todoDeleted.json()
+        const textParagraph = document.getElementById("responce")
+        textParagraph.innerText = responceFromDeleted.msg
     }
 })
